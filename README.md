@@ -16,7 +16,7 @@ In this project, we use high-order boundary integral equations to impose non-pen
 
 Fish are modeled as active particles. Filella *et al.* [@filella2018model] demonstrated how hydrodynamic interactions and behavioral rules generate phases such as collective turning and milling. Gautrais *et al.* [@gautrais2012deciphering] extracted interaction rules directly from experimental data, showing how positional and orientational cues determine turning behavior. Calovi *et al.* [@Cavaiola2021] studied responses to external perturbations, finding sensitivity peaks near transitions between schooling and milling. Huang *et al.* [@Huang2017] showed that confinement generates new behaviors such as double milling and wall-following. Tsang and Kanso [@Tsang2015] investigated confined microswimmers and demonstrated transitions between chaotic swirling, stable circulation, and boundary aggregation.
 
-We use the Euler–Maruyama method to simulate the stochastic differential equations. Since noise is present in the turning dynamics, we run multiple Monte Carlo (MC) simulations distributed over OpenMPI on USC CARC. Data analysis includes spatial probability density heat maps, velocity-correlation statistics, and flow visualization. All code (existing and new) is written in Python and MATLAB.
+We use the Euler–Maruyama method to simulate the stochastic differential equations. Since noise is present in the turning dynamics, we run multiple Monte Carlo (MC) simulations distributed over OpenMPI on USC CARC. Data analysis includes spatial probability density heat maps, velocity-correlation statistics, and flow visualization. All existing and newly developed codes are written in Python and MATLAB
 
 ---
 ## 2. Mathematical Modelling
