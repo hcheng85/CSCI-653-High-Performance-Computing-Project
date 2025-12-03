@@ -19,82 +19,83 @@ Fish are modeled as active particles. Filella *et al.* [@filella2018model] demon
 We use the Euler–Maruyama method to simulate the stochastic differential equations. Since noise is present in the turning dynamics, we run multiple Monte Carlo (MC) simulations distributed over OpenMPI on USC CARC. Data analysis includes spatial probability density heat maps, velocity-correlation statistics, and flow visualization. All code (existing and new) is written in Python and MATLAB.
 
 ---
+## 3. Mathematical Modelling
 
-## Equation of Fish Motion
-
-Let each fish \( n \) be at position  
-\[
-\mathbf{r}_n = (x_n, y_n),
-\qquad
-\mathbf{p}_n = (\cos\theta_n,\, \sin\theta_n),
-\]
-and swim at speed \( U = 0.2\ \mathrm{m/s} \) relative to the flow.
-
-### Equations of motion
+Let each fish $n$ be at position:
 
 $$
-\begin{aligned}
-\dot{\mathbf{r}}_n &= U\,\mathbf{p}_n + \mathbf{U}_n, \\
-\mathrm{d}\theta_n &= 
-\Big[
-(\mathbf{p}_n \cdot \nabla)\mathbf{U}_n \cdot \mathbf{p}_n^\perp
-+ k_w \frac{\operatorname{sgn}(\phi_{wn})}{d_{wn}}
-\Big]\,\mathrm{d}t \\
-&\quad
-+ \left\langle
-k_p\, d_{nk}\,\sin\theta_{nk} +
-k_v\,\sin\phi_{nk}
-\right\rangle\,\mathrm{d}t
-+ \sigma\,\mathrm{d}W.
-\end{aligned}
+\mathbf{r}_n = (x_n, y_n), \qquad
+\mathbf{p}_n = (\cos\theta_n, \sin\theta_n),
 $$
 
-Here:
-
-- \( \mathbf{U}_n = (\mathbf{u} + \mathbf{u}_{\mathrm{BEM}})|_{\mathbf{r}_n} \) is the combined disturbance from hydrodynamic dipoles and boundary singularities.
-- \( k_w \) controls wall avoidance; \( d_{wn} \) is the distance to the boundary hit point; \( \phi_{wn} \) is the incident angle.
-- \( \mathrm{d}W = \sqrt{\mathrm{d}t}\,\mathcal{N}(0,1) \) is a Wiener process.
-- \( k_p \) and \( k_v \) scale attraction and alignment to Voronoi neighbors.
-
-### Voronoi-based behavioral operator
-
-$$
-\langle \circ \rangle
-= \frac{
-\sum_{j\in\mathcal{V}_n} \circ\,(1+\cos\theta_{nk})
-}{
-\sum_{j\in\mathcal{V}_n} (1+\cos\theta_{nk})
-}.
-$$
-
-Neighbor definitions:
-
-- \( \theta_{nk} = \operatorname{atan2}(y_k - y_n,\, x_k - x_n) - \theta_n \)
-- \( \phi_{nk} = \theta_k - \theta_n \)
-- \( d_{nk} = \|\mathbf{r}_n - \mathbf{r}_k\| \)
+and swim at speed $U = 0.2\ \mathrm{m/s}$ relative to the flow.
 
 ---
 
-## Hydrodynamic Dipole Interactions
+### Equations of motion
 
-The disturbance induced by fish \( k \) on fish \( n \) is modeled as:
+#### Translational dynamics
+$$
+\dot{\mathbf{r}}_n = U\mathbf{p}_n + \mathbf{U}_n.
+$$
+#### Rotational dynamics
 
 $$
-\mathbf{u}_{kn}
-= \frac{k_f}{\pi}
-\frac{
-\mathbf{p}_n \sin 2\theta_{kn}
-+ \mathbf{p}_n^\perp \cos 2\theta_{kn}
-}{
-d_{nk}^2
-}.
+\mathrm{d}\theta_n =
+\left[
+(\mathbf{p}_n \cdot \nabla)\mathbf{U}_n \cdot \mathbf{p}_n^\perp
++
+k_w \frac{\mathrm{sgn}(\phi_{wn})}{d_{wn}}
+\right]\mathrm{d}t
++
+\left\langle
+k_p d_{nk}\sin\theta_{nk}
++
+k_v\sin\phi_{nk}
+\right\rangle \mathrm{d}t
++
+\sigma\mathrm{d}W.
 $$
 
-Here \( k_f = S v \), where \( S = \pi l^2 / 4 \) is the fish’s cross-sectional area and \( l \) is body length.
+---
+The prescribed system incorporates
+**Hydrodynamic disturbance**
 
-### Complex representation of dipoles
+$$
+\mathbf{U}_n = (\mathbf{u} + \mathbf{u}_{\mathrm{BEM}})\big|_{\mathbf{r}_n}.
+$$
 
-Using complex notation \( z_n = x_n + i y_n \):
+**Wiener process**
+
+$$
+\mathrm{d}W = \sqrt{\mathrm{d}t}\mathcal{N}(0,1).
+$$
+
+**Voronoi-based behavioral operator**
+
+$$ 
+\langle \circ \rangle = \frac{ \sum_{j \in \mathcal{V}_n} \circ  (1+\cos\theta_{nk}) }{ \sum_{j \in \mathcal{V}_n} (1+\cos\theta_{nk}) }
+$$
+
+- $\theta_{nk} = \arctan2 \left(y_k-y_n,x_k-x_n \right)-\theta_n$
+- $\phi_{nk} = \theta_k - \theta_n$
+- $d_{nk} = \lVert \mathbf{r}_n - \mathbf{r}_k \rVert$
+
+---
+
+**Hydrodynamic Interactions**
+
+The disturbance induced by fish $k$ on fish $n$ is modeled as:
+
+$$
+\mathbf{u}_{kn} = \frac{k_f}{\pi}\frac{\mathbf{p}_n \sin(2\theta_{kn}) + \mathbf{p}_n^\perp \cos(2\theta_{kn})}{d_{nk}^2}
+$$
+
+Here $k_f = S v$, where $S = \pi l^2 / 4$ is the fish’s cross-sectional area and $l$ is body length.
+
+## Complex representation of dipoles
+
+Using complex notation $$z_n = x_n + i y_n$$:
 
 $$
 F(z)
