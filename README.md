@@ -72,15 +72,11 @@ $$
 $$
 
 **Voronoi-based behavioral operator**
-<!-- <p align="center">
-  <img src="fig/voronoi.png" width="300"/>
-  <img src="fig/social_interc.pdf" width="300"/>
-</p> -->
 <p align="center">
-  <img src="fig/voronoi.png" width="300" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="fig/voronoi.pdf">📄 PDF version</a>
-</p>
+  <img src="fig/voronoi.png" width="300"/>
+  <img src="fig/social_interc.png" width="300"/>
+</p> 
+
 $$ 
 \langle \circ \rangle = \frac{ \sum_{j \in \mathcal{V}_n} \circ  (1+\cos\theta_{nk}) }{ \sum_{j \in \mathcal{V}_n} (1+\cos\theta_{nk}) }
 $$
