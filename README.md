@@ -132,7 +132,7 @@ $$
 \frac{\partial}{\partial \mathbf{n}_s} S\[ \sigma \](s^\pm) = \mp \frac{1}{2}\,\sigma(s) + \int_{\partial \Omega} \sigma(t)\frac{\partial}{\partial \mathbf{n}_s} \Phi(s,t) dt
 $$
 ## 3. Results
-[▶️ Watch simulation](videos/validation.mp4)
+[▶️ Watch simulation](video/validation.mp4)
 
 
 These results reveal how confinement and flow-mediated interactions shape collective behavior in complex environments.
