@@ -73,8 +73,8 @@ $$
 
 **Voronoi-based behavioral operator**
 <p align="center">
-  <img src="fig/voronoi.png" width="300"/>
-  <img src="fig/social_interc.png" width="300"/>
+  <img src="fig/voronoi.png" width="200"/>
+  <img src="fig/social_interc.png" width="200"/>
 </p> 
 
 $$ 
@@ -132,7 +132,10 @@ $$
 \frac{\partial}{\partial \mathbf{n}_s} S\[ \sigma \](s^\pm) = \mp \frac{1}{2}\,\sigma(s) + \int_{\partial \Omega} \sigma(t)\frac{\partial}{\partial \mathbf{n}_s} \Phi(s,t) dt
 $$
 ## 3. Results
-[▶️ Watch simulation](video/validation.mp4)
+<p align="center">
+  <img src="fig/complex_domain.png" width="1200"/>
+</p> 
+
 
 
 These results reveal how confinement and flow-mediated interactions shape collective behavior in complex environments.
