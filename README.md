@@ -19,7 +19,7 @@ Fish are modeled as active particles. Filella *et al.* [@filella2018model] demon
 We use the Euler–Maruyama method to simulate the stochastic differential equations. Since noise is present in the turning dynamics, we run multiple Monte Carlo (MC) simulations distributed over OpenMPI on USC CARC. Data analysis includes spatial probability density heat maps, velocity-correlation statistics, and flow visualization. All code (existing and new) is written in Python and MATLAB.
 
 ---
-## 3. Mathematical Modelling
+## 2. Mathematical Modelling
 
 Let each fish $n$ be at position:
 
@@ -97,7 +97,7 @@ $$
 
 Here $k_f = S v$, where $S = \pi l^2 / 4$ is the fish’s cross-sectional area and $l$ is body length.
 
-## Complex representation of dipoles
+**Complex representation of dipoles**
 
 Using complex notation $$z_n = x_n + i y_n$$:
 
@@ -122,16 +122,18 @@ w^\delta(z)
 }.
 $$
 
----
+**Boundary element method**
 
-## 2. Expected Results
+A common method for addressing the Laplace boundary value problem (BVP) is to transform
+the BVP into a boundary integral equation, thereby solving it as a linear system.
+The boundary integral equation for the two-dimensional Laplace equation is written as follows:
 
-We expect that a leader fish can guide the group significantly more efficiently than a linear controller. This framework enables us to study how hydrodynamic interactions, geometry, and group size influence:
+$$
+\frac{\partial}{\partial \mathbf{n}_s} S\[ \sigma \](s^\pm) = \mp \frac{1}{2}\,\sigma(s) + \int_{\partial \Omega} \sigma(t)\frac{\partial}{\partial \mathbf{n}_s} \Phi(s,t) dt
+$$
+## 3. Results
 
-- transition dynamics,
-- information propagation speed,
-- population oscillation between chambers,
-- and collective navigation strategies.
+
 
 These results reveal how confinement and flow-mediated interactions shape collective behavior in complex environments.
 
